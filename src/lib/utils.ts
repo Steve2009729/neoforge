@@ -1,35 +1,83 @@
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { insforge } from './insforge';
+import type { CodeSnippet } from '@/types';
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+// CRITICAL: Extract user ID safely from InsForge user object
+export function extractUserId(user: any): string | null {
+  return (user as any)?.id || (user as any)?.user?.id || null;
 }
 
-export function generateUsername(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, '')
-    .replace(/[^a-z0-9_-]/g, '')
-    .slice(0, 30) + Math.floor(Math.random() * 1000);
+// Extract @mentions from text
+export function extractMentions(text: string): string[] {
+  const mentionRegex = /@(\w+)/g;
+  const matches = text.match(mentionRegex) || [];
+  return matches.map(m => m.substring(1)); // Remove @ symbol
 }
 
-export function formatBytes(bytes: number): string {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+// Parse markdown code blocks
+export function parseCodeBlock(text: string): CodeSnippet[] {
+  const codeBlockRegex = /```(\w+)\n([\s\S]*?)\n```/g;
+  const snippets: CodeSnippet[] = [];
+  let match;
+
+  while ((match = codeBlockRegex.exec(text)) !== null) {
+    snippets.push({
+      language: match[1] || 'text',
+      code: match[2].trim(),
+    });
+  }
+
+  return snippets;
 }
 
-export function getDeviceType(userAgent: string): string {
-  if (/mobile/i.test(userAgent)) return 'mobile';
-  if (/tablet/i.test(userAgent)) return 'tablet';
-  return 'desktop';
+// Check if user follows another user
+export async function isFollowing(
+  followerId: string,
+  followingId: string,
+  client: typeof insforge
+): Promise<boolean> {
+  try {
+    const { data: follows, error } = await client
+      .database
+      .from('follows')
+      .select('*')
+      .eq('follower_id', followerId)
+      .eq('following_id', followingId)
+      .limit(1);
+
+    if (error || !follows || follows.length === 0) {
+      return false;
+    }
+
+    return true;
+  } catch {
+    return false;
+  }
 }
 
-export function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, '');
+// Get follow statistics for a profile
+export async function getFollowStats(profileId: string, client: typeof insforge) {
+  try {
+    const { data: followers, error: followerError } = await client
+      .database
+      .from('follows')
+      .select('*')
+      .eq('following_id', profileId);
+
+    const { data: following, error: followingError } = await client
+      .database
+      .from('follows')
+      .select('*')
+      .eq('follower_id', profileId);
+
+    if (followerError || followingError) {
+      return { followers_count: 0, following_count: 0 };
+    }
+
+    return {
+      followers_count: followers?.length || 0,
+      following_count: following?.length || 0,
+    };
+  } catch {
+    return { followers_count: 0, following_count: 0 };
+  }
 }

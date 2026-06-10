@@ -1,93 +1,168 @@
-export interface Profile {
+// Type definitions for NeoForge Stage 1 Continuation
+
+export interface CodeSnippet {
+  language: string;
+  code: string;
+  title?: string;
+}
+
+export interface Post {
   id: string;
+  profile_id: string;
   username: string;
-  full_name: string | null;
-  bio: string | null;
-  ai_bio: string | null;
-  avatar_url: string | null;
-  email: string | null;
-  location: string | null;
-  website_url: string | null;
-  github_url: string | null;
-  twitter_url: string | null;
-  linkedin_url: string | null;
+  avatar_url?: string;
+  content: string;
+  images: string[];
+  code_snippets: CodeSnippet[];
+  likes_count: number;
+  comments_count: number;
   is_public: boolean;
-  is_available_for_hire: boolean;
-  years_of_experience: number;
-  profile_views: number;
   created_at: string;
   updated_at: string;
+  liked_by_current_user?: boolean;
+  comments?: Comment[];
 }
 
-export interface Skill {
+export interface Comment {
   id: string;
+  post_id: string;
   profile_id: string;
-  name: string;
-  level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
-  category: 'language' | 'framework' | 'tool' | 'database' | 'other';
-  created_at: string;
-}
-
-export interface Project {
-  id: string;
-  profile_id: string;
-  title: string;
-  description: string | null;
-  long_description: string | null;
-  thumbnail_url: string | null;
-  live_url: string | null;
-  github_url: string | null;
-  tech_stack: string[];
-  is_featured: boolean;
-  is_public: boolean;
-  status: 'completed' | 'in_progress' | 'archived';
-  display_order: number;
-  project_views: number;
+  username: string;
+  avatar_url?: string;
+  content: string;
+  likes_count: number;
   created_at: string;
   updated_at: string;
-  files?: ProjectFile[];
+  liked_by_current_user?: boolean;
 }
 
-export interface ProjectFile {
+export interface Follow {
   id: string;
-  project_id: string;
-  profile_id: string;
-  file_name: string;
-  file_url: string;
-  file_type: 'code' | 'image' | 'document' | 'other';
-  file_size: number | null;
-  display_order: number;
+  follower_id: string;
+  following_id: string;
   created_at: string;
 }
 
-export interface PortfolioView {
+export interface Notification {
   id: string;
-  profile_id: string;
-  viewer_ip: string | null;
-  viewer_country: string | null;
-  viewer_device: string | null;
-  referrer: string | null;
-  viewed_at: string;
-}
-
-export interface ContactMessage {
-  id: string;
-  name: string;
-  email: string;
-  subject: string | null;
-  message: string;
+  recipient_id: string;
+  actor_id: string;
+  actor_username: string;
+  actor_avatar?: string;
+  event_type: 'like' | 'comment' | 'follow' | 'mention';
+  post_id?: string;
+  comment_id?: string;
   is_read: boolean;
   created_at: string;
 }
 
-export interface PublicPortfolio {
-  profile: Profile;
-  skills: Skill[];
-  projects: Project[];
+export interface GitHubRepo {
+  name: string;
+  description?: string;
+  url: string;
+  stars: number;
+  language?: string;
 }
 
-export interface ApiResponse<T> {
-  data: T | null;
-  error: string | null;
-  success: boolean;
+export interface GitHubStats {
+  id: string;
+  profile_id: string;
+  github_username: string;
+  total_repos: number;
+  total_stars: number;
+  total_followers: number;
+  total_following: number;
+  top_languages: string[];
+  most_used_language?: string;
+  public_repos: GitHubRepo[];
+  contribution_count: number;
+  last_synced?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DeveloperSearch {
+  id: string;
+  username: string;
+  full_name?: string;
+  avatar_url?: string;
+  bio?: string;
+  location?: string;
+  is_available_for_hire: boolean;
+  github_username?: string;
+  skills: string[];
+}
+
+export interface PostSearch {
+  id: string;
+  username: string;
+  avatar_url?: string;
+  content: string;
+  likes_count: number;
+  comments_count: number;
+  created_at: string;
+}
+
+export interface DevWorldUpdate {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  source: 'hackernews' | 'devto' | 'github' | 'newsapi';
+  published_at: string;
+  views?: number;
+  reactions?: number;
+}
+
+export interface SearchResult {
+  developers: DeveloperSearch[];
+  posts: PostSearch[];
+}
+
+// Profile type (existing from foundation)
+export interface Profile {
+  id: string;
+  user_id: string;
+  username: string;
+  full_name?: string;
+  avatar_url?: string;
+  bio?: string;
+  location?: string;
+  website?: string;
+  github_username?: string;
+  twitter_handle?: string;
+  is_available_for_hire: boolean;
+  verified: boolean;
+  followers_count: number;
+  following_count: number;
+  posts_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+// Project type (Stage 1 Continuation)
+export interface Project {
+  id: string;
+  profile_id: string;
+  title: string;
+  description: string;
+  repository_url?: string;
+  demo_url?: string;
+  images: string[];
+  technologies: string[];
+  is_featured: boolean;
+  is_public: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+// Skill type (Stage 1 Continuation)
+export interface Skill {
+  id: string;
+  profile_id: string;
+  name: string;
+  category: string;
+  proficiency: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  verified: boolean;
+  created_at: string;
 }

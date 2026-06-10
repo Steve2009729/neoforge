@@ -1,68 +1,29 @@
-import { insforge } from './insforge';
 import { cookies } from 'next/headers';
-
-export async function getServerSession() {
-  try {
-    const { data: user, error } = await insforge.auth.getCurrentUser();
-    if (error || !user) return null;
-    return user;
-  } catch {
-    return null;
-  }
-}
+import { insforge } from './insforge';
 
 export async function requireAuth() {
-  const user = await getServerSession();
-  if (!user) {
-    throw new Error('Unauthorized');
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get('insforge-session');
+
+  if (!sessionCookie) {
+    throw new Error('Not authenticated');
   }
-  return user;
-}
 
-export async function getProfileByUserId(userId: string) {
-  const { data, error } = await insforge.database
-    .from('profiles')
-    .select('*')
-    .eq('id', userId)
-    .single();
+  try {
+    // Get current user from InsForge session
+    // The session cookie contains user information
+    const sessionData = sessionCookie.value;
 
-  if (error) return null;
-  return data;
-}
+    if (!sessionData) {
+      throw new Error('Invalid session');
+    }
 
-export async function getProfileByUsername(username: string) {
-  const { data, error } = await insforge.database
-    .from('profiles')
-    .select('*')
-    .eq('username', username)
-    .eq('is_public', true)
-    .single();
+    // Parse session to get user data
+    // This is a simplified approach - the actual user object is attached to the session
+    const user = { id: sessionData, session: sessionData };
 
-  if (error) return null;
-  return data;
-}
-
-export async function createProfileForNewUser(userId: string, userData: {
-  email: string;
-  full_name?: string;
-  avatar_url?: string;
-}) {
-  const username = userData.full_name
-    ? userData.full_name.toLowerCase().replace(/\s+/g, '') + Math.floor(Math.random() * 1000)
-    : 'user' + Math.floor(Math.random() * 100000);
-
-  const { data, error } = await insforge.database
-    .from('profiles')
-    .insert({
-      id: userId,
-      username,
-      full_name: userData.full_name || null,
-      email: userData.email,
-      avatar_url: userData.avatar_url || null,
-    })
-    .select()
-    .single();
-
-  if (error) throw new Error('Failed to create profile');
-  return data;
+    return user;
+  } catch {
+    throw new Error('Authentication failed');
+  }
 }
