@@ -153,33 +153,36 @@ export default function LandingPage() {
         </div>
 
         {/* Infinite scroll */}
-        <div className="relative overflow-hidden mask-gradient">
-          <div className="flex gap-6 animate-scroll">
+        <div className="relative w-full overflow-x-hidden mask-gradient">
+          <style jsx>{`
+            .carousel-container {
+              display: flex;
+              gap: 1.5rem;
+              animation: scroll 30s linear infinite;
+              will-change: transform;
+            }
+
+            .carousel-container:hover {
+              animation-play-state: paused;
+            }
+
+            @keyframes scroll {
+              0% {
+                transform: translateX(0);
+              }
+              100% {
+                transform: translateX(calc(-50% - 1.5rem / 2));
+              }
+            }
+          `}</style>
+          <div className="carousel-container">
             {scrollingDevs.map((dev, idx) => (
-              <DeveloperCard key={`${dev.id}-${idx}`} {...dev} />
+              <div key={`${dev.id}-${idx}`} className="flex-shrink-0">
+                <DeveloperCard {...dev} />
+              </div>
             ))}
           </div>
         </div>
-
-        <style jsx>{`
-          @keyframes scroll {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-50%);
-            }
-          }
-
-          .animate-scroll {
-            animation: scroll 30s linear infinite;
-            will-change: transform;
-          }
-
-          .animate-scroll:hover {
-            animation-play-state: paused;
-          }
-        `}</style>
       </section>
 
       {/* FEATURES SECTION */}

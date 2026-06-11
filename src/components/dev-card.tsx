@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface DeveloperCardProps {
@@ -28,12 +27,12 @@ export default function DeveloperCard({
     <div className="min-w-[300px] bg-[#1A1A2E] border border-[#2D2D47] rounded-xl p-6 hover:border-[#7C3AED] transition-all duration-300 hover:shadow-[0_0_20px_rgba(124,58,237,0.3)]">
       {/* Header */}
       <div className="flex items-start gap-4 mb-4">
-        <Image
+        <img
           src={avatar}
           alt={name}
           width={64}
           height={64}
-          className="rounded-full"
+          className="rounded-full w-16 h-16 object-cover"
           loading="lazy"
         />
         <div className="flex-1">

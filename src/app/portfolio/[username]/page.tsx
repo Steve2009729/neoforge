@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
@@ -32,12 +31,12 @@ export default async function PortfolioPage({
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
               {/* Avatar */}
-              <Image
+              <img
                 src={profile.avatar}
                 alt={profile.name}
                 width={160}
                 height={160}
-                className="rounded-full"
+                className="rounded-full w-40 h-40 object-cover"
               />
 
               {/* Info */}
