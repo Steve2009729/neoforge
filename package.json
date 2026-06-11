@@ -9,14 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@insforge/sdk": "^1.0.0",
+    "clsx": "^2.0.0",
+    "framer-motion": "^12.40.0",
     "next": "16.2.7",
+    "nodemailer": "^6.9.7",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "@insforge/sdk": "^1.0.0",
-    "zod": "^3.22.4",
-    "clsx": "^2.0.0",
     "tailwind-merge": "^2.2.0",
-    "nodemailer": "^6.9.7"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
