@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import ErrorBoundary from '@/components/error-boundary';
 
 export const metadata: Metadata = {
   title: 'NeoForge - Developer Portfolio Platform',
@@ -22,11 +21,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon-192.png" />
       </head>
-      <body>
-        <ErrorBoundary>
-          {children}
-        </ErrorBoundary>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
