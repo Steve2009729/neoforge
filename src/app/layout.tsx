@@ -16,7 +16,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body style={{ backgroundColor: '#0D0D14', color: '#F5F3FF', minHeight: '100vh' }}>
+      <body style={{ 
+        backgroundColor: '#0D0D14', 
+        color: '#F5F3FF', 
+        minHeight: '100vh',
+        margin: 0,
+        padding: 0,
+        fontFamily: 'ui-sans-serif, system-ui, sans-serif'
+      }}>
         {children}
       </body>
     </html>
