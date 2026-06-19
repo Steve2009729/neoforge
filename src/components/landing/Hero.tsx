@@ -3,97 +3,135 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-export default function Hero() {
+export const Hero = () => {
   return (
-    <section className="relative overflow-hidden pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-      {/* Animated background glows */}
-      <div className="absolute -top-40 -left-40 w-80 h-80 rounded-full opacity-20 blur-3xl animate-float" style={{ background: 'linear-gradient(135deg, #7C3AED, #A855F7)' }} />
-      <div className="absolute -bottom-40 -right-40 w-80 h-80 rounded-full opacity-20 blur-3xl animate-float" style={{ background: 'linear-gradient(135deg, #A855F7, #7C3AED)', animationDelay: '2s' }} />
+    <section style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '80px 24px 40px',
+      backgroundColor: '#0D0D14',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      {/* Glow blobs */}
+      <div style={{ position: 'absolute', top: '20%', right: '15%', width: '400px', height: '400px', background: 'rgba(124,58,237,0.15)', borderRadius: '50%', filter: 'blur(80px)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '20%', left: '10%', width: '300px', height: '300px', background: 'rgba(168,85,247,0.1)', borderRadius: '50%', filter: 'blur(80px)', pointerEvents: 'none' }} />
 
-      <div className="relative max-w-6xl mx-auto">
-        {/* Eyebrow badge */}
+      {/* Grid background */}
+      <div style={{
+        position: 'absolute', inset: 0, opacity: 0.04, pointerEvents: 'none',
+        backgroundImage: 'linear-gradient(rgba(124,58,237,1) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,1) 1px, transparent 1px)',
+        backgroundSize: '60px 60px',
+      }} />
+
+      <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', width: '100%', textAlign: 'center' }}>
+
+        {/* Badge */}
         <motion.div
-          className="flex justify-center mb-8"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-block px-4 py-2 bg-[#1A1A2E] border border-[#7C3AED] rounded-full text-[#A855F7] text-sm font-semibold animate-pulse-glow">
-            🚀 Join 1000+ developers
-          </div>
-        </motion.div>
-
-        {/* Main headline */}
-        <motion.h1
-          className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white text-center mb-6 leading-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+          transition={{ duration: 0.6 }}
+          style={{ marginBottom: '32px' }}
         >
-          Build Your Developer{' '}
-          <span className="bg-gradient-to-r from-[#7C3AED] to-[#A855F7] bg-clip-text text-transparent">
-            Portfolio in Seconds
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            padding: '8px 20px', borderRadius: '100px',
+            background: 'rgba(124,58,237,0.15)',
+            border: '1px solid rgba(124,58,237,0.4)',
+            color: '#c4b5fd', fontSize: '14px', fontWeight: '500',
+          }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#a855f7', animation: 'pulse 2s ease-in-out infinite' }} />
+            The Developer Portfolio Platform
+          </span>
+        </motion.div>
+
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          style={{ fontSize: 'clamp(40px, 7vw, 80px)', fontWeight: '800', lineHeight: 1.1, marginBottom: '24px', color: 'white' }}
+        >
+          Build Your{' '}
+          <span style={{ background: 'linear-gradient(135deg, #c4b5fd, #7C3AED, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            Portfolio
+          </span>
+          <br />
+          Land Your{' '}
+          <span style={{ background: 'linear-gradient(135deg, #c4b5fd, #7C3AED, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            Dream Role
           </span>
         </motion.h1>
 
         {/* Subheading */}
         <motion.p
-          className="text-center text-lg text-[#B8B5C9] max-w-2xl mx-auto mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          style={{ fontSize: 'clamp(16px, 2.5vw, 20px)', color: '#B8B5C9', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.7 }}
         >
-          NeoForge is the ultimate platform for developers to showcase their work, connect with the community, and land amazing opportunities.
+          NeoForge is the platform where developers build stunning portfolios,
+          sync their GitHub, connect with the community, and get discovered by
+          employers worldwide.
         </motion.p>
 
         {/* CTA Buttons */}
         <motion.div
-          className="flex gap-4 justify-center mb-16 flex-wrap"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '60px' }}
         >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link
-              href="/auth/register"
-              className="px-8 py-4 rounded-lg font-semibold text-white transition-all duration-300"
+          <Link href="/auth/register" style={{ textDecoration: 'none' }}>
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(124,58,237,0.6)' }}
+              whileTap={{ scale: 0.95 }}
               style={{
-                background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
-                boxShadow: '0 0 20px rgba(124, 58, 237, 0.4)',
+                padding: '16px 32px', borderRadius: '12px', fontWeight: '700',
+                fontSize: '18px', color: 'white', border: 'none', cursor: 'pointer',
+                background: 'linear-gradient(135deg, #7C3AED, #a855f7)',
+                boxShadow: '0 0 30px rgba(124,58,237,0.4)',
               }}
             >
-              Get Started
-            </Link>
-          </motion.div>
-          <motion.button
-            onClick={() => {
-              const element = document.getElementById('features');
-              element?.scrollIntoView({ behavior: 'smooth' });
+              Get Started Free →
+            </motion.button>
+          </Link>
+          <motion.a
+            href="#features"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            style={{
+              padding: '16px 32px', borderRadius: '12px', fontWeight: '600',
+              fontSize: '18px', color: '#c4b5fd', border: '2px solid rgba(124,58,237,0.5)',
+              cursor: 'pointer', textDecoration: 'none', display: 'inline-block',
+              transition: 'all 0.2s',
             }}
-            className="px-8 py-4 border border-[#7C3AED] text-[#7C3AED] font-semibold rounded-lg hover:bg-[#7C3AED]/10 transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
-            Learn More
-          </motion.button>
+            See Features
+          </motion.a>
         </motion.div>
 
-        {/* Demo section */}
+        {/* Stats */}
         <motion.div
-          className="relative rounded-xl overflow-hidden border border-[#2D2D4A]"
-          style={{ backgroundColor: '#1A1A2E' }}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          whileHover={{ boxShadow: '0 0 40px rgba(124, 58, 237, 0.3)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          style={{ display: 'flex', justifyContent: 'center', gap: '48px', flexWrap: 'wrap' }}
         >
-          <div className="p-6">
-            <div className="aspect-video bg-gradient-to-br from-[#2D2D4A] to-[#0D0D14] rounded-lg flex items-center justify-center">
-              <p className="text-[#6B6882]">Dashboard Preview Coming Soon</p>
+          {[
+            { value: '500+', label: 'Developers' },
+            { value: '1,200+', label: 'Portfolios' },
+            { value: '50+', label: 'Countries' },
+          ].map(stat => (
+            <div key={stat.label} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '28px', fontWeight: '800', color: '#a855f7', marginBottom: '4px' }}>{stat.value}</div>
+              <div style={{ fontSize: '14px', color: '#6B6882' }}>{stat.label}</div>
             </div>
-          </div>
+          ))}
         </motion.div>
       </div>
     </section>
   );
-}
+};

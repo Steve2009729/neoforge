@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import Navbar from '@/components/shared/Navbar';
-import Footer from '@/components/landing/Footer';
+import { Navbar } from '@/components/shared/Navbar';
+import { Footer } from '@/components/landing/Footer';
 
 export default function PortfolioPage({
   params,

@@ -30,7 +30,7 @@ const footerSections = [
   },
 ];
 
-export default function Footer() {
+export const Footer = () => {
   return (
     <footer className="bg-[#0D0D14] border-t border-[#2D2D4A] py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">

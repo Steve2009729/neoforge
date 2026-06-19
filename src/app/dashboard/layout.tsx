@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Navbar from '@/components/shared/Navbar';
+import { Navbar } from '@/components/shared/Navbar';
 
 export default function DashboardLayout({
   children,

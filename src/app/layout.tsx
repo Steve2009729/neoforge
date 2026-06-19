@@ -2,12 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'NeoForge - Developer Portfolio Platform',
-  description: 'Build your developer portfolio in seconds. Connect with the community and land amazing opportunities.',
-  icons: {
-    icon: '/favicon.svg',
-    apple: '/favicon-192.png',
-  },
+  title: 'NeoForge — Build Your Developer Portfolio',
+  description: 'Showcase your projects, connect with developers worldwide, and land your dream role.',
+  authors: [{ name: 'Neo Steve' }],
+  creator: 'Neo Steve',
+  icons: { icon: '/favicon.ico' },
 };
 
 export default function RootLayout({
@@ -17,11 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/favicon-192.png" />
-      </head>
-      <body>{children}</body>
+      <body style={{ backgroundColor: '#0D0D14', color: '#F5F3FF', minHeight: '100vh' }}>
+        {children}
+      </body>
     </html>
   );
 }

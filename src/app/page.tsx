@@ -1,23 +1,21 @@
-'use client';
+import { Navbar } from '@/components/shared/Navbar';
+import { Hero } from '@/components/landing/Hero';
+import { PortfolioScroll } from '@/components/landing/PortfolioScroll';
+import { FeaturedDevelopers } from '@/components/landing/FeaturedDevelopers';
+import { Features } from '@/components/landing/Features';
+import { ContactForm } from '@/components/landing/ContactForm';
+import { Footer } from '@/components/landing/Footer';
 
-import Navbar from '@/components/shared/Navbar';
-import Hero from '@/components/landing/Hero';
-import FakePortfolioScroll from '@/components/landing/FakePortfolioScroll';
-import RealDevelopersSection from '@/components/landing/RealDevelopersSection';
-import Features from '@/components/landing/Features';
-import ContactForm from '@/components/landing/ContactForm';
-import Footer from '@/components/landing/Footer';
-
-export default function LandingPage() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-[#0D0D14]">
+    <main style={{ backgroundColor: '#0D0D14', color: '#F5F3FF', overflowX: 'hidden' }}>
       <Navbar />
       <Hero />
-      <FakePortfolioScroll />
-      <RealDevelopersSection />
+      <PortfolioScroll />
+      <FeaturedDevelopers />
       <Features />
       <ContactForm />
       <Footer />
-    </div>
+    </main>
   );
 }
